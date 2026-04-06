@@ -1,0 +1,77 @@
+profiles:
+  simple:
+    model: gpt-4o-mini
+    description: >
+      Delegate simple developer tasks: code generation, boilerplate,
+      small refactors, shell snippets, code explanations.
+      Do NOT use for architecture, security, or auth decisions.
+    prompt_prefix: "Respond concisely in the same language as the task. Return only code or a direct answer."
+    timeout: 300
+    max_input_length: 5000
+    max_output_length: 16000
+    # Tools Copilot is allowed to use. Only listed tools are visible to the model;
+    # tools outside this list are completely unavailable.
+    allowed_tools:
+      - view
+      - show_file
+      - create
+      - edit
+      - grep
+      - glob
+      - bash
+      - web_fetch
+    blocked_patterns:
+      - "rm -rf"
+      - "mkfs"
+      - "dd if="
+      - "shutdown"
+      - "reboot"
+      - "chmod 777"
+    rejected_keywords:
+      - architecture
+      - security
+      - authentication
+      - authorization
+      - autorizace
+      - architektura
+      - bezpecnost
+      - compliance
+      - multi-tenant
+
+  security:
+    model: gpt-4o
+    description: >
+      Analyze code or configurations for security vulnerabilities,
+      threat modeling, or OWASP issues. Use for security-focused review.
+    prompt_prefix: "You are a security expert. Analyze thoroughly and list specific vulnerabilities with severity."
+    timeout: 600
+    max_input_length: 30000
+    max_output_length: 15000
+    # Read-only: security review must not modify files or run arbitrary shell commands.
+    allowed_tools:
+      - view
+      - show_file
+      - grep
+      - glob
+      - web_fetch
+    blocked_patterns: []
+    rejected_keywords: []
+
+  code_review:
+    model: gpt-4o
+    description: >
+      Supplement code review: check for code quality, naming, complexity,
+      test coverage, and best practices. Not a replacement for human review.
+    prompt_prefix: "Review this code for quality, readability, and best practices. Be specific and actionable."
+    timeout: 600
+    max_input_length: 30000
+    max_output_length: 15000
+    # Read-only: code review must not modify files or run arbitrary shell commands.
+    allowed_tools:
+      - view
+      - show_file
+      - grep
+      - glob
+      - web_fetch
+    blocked_patterns: []
+    rejected_keywords: []
