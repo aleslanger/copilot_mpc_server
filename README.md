@@ -1,4 +1,4 @@
-# AI Agent Copilot
+# Copilot MCP server for Claude
 
 An MCP (Model Context Protocol) server that lets Claude Code delegate developer tasks to GitHub Copilot CLI. Tasks are routed to specialized agents based on config-driven profiles — each with its own model, prompt, tool whitelist, and safety rules.
 
